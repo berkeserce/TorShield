@@ -32,7 +32,7 @@ pip install -r requirements.txt
 
 1. Run the application:
 ```bash
-python main.py
+python src/main.py
 ```
 
 2. Click "Connect" to start routing traffic through Tor
