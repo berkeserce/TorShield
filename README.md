@@ -1,57 +1,57 @@
 # TorShield
 
-TorShield, Windows sistemlerde Tor ağı üzerinden güvenli ve hızlı internet bağlantısı sağlayan bir masaüstü uygulamasıdır.
+TorShield is a secure and user-friendly desktop application that routes your internet traffic through the Tor network, providing enhanced privacy and anonymity.
 
-## Özellikler
+## Features
 
-- Tor ağı üzerinden anonim internet bağlantısı
-- Sistem proxy ayarlarını otomatik yönetme
-- Optimize edilmiş bağlantı hızı
-- Bağlantı durumu ve hız göstergeleri
-- Otomatik yeniden bağlanma özelliği
-- Sistem tepsisi desteği
-- Modern matte siyah arayüz
-- Bağlantı geçmişi yönetimi
+- Modern matte black UI design
+- System tray integration
+- Real-time connection status monitoring
+- Download/Upload speed display
+- Connection history tracking
+- Auto-reconnect capability
+- System proxy integration
+- Secure Tor network routing
 
-## Gereksinimler
+## Installation
 
-- Windows 10 veya üzeri
-- Python 3.8 veya üzeri
-- Tor Expert Bundle (tor klasörü içinde bulunmalıdır)
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/torshield.git
+cd torshield
+```
 
-## Kurulum
-
-1. Gerekli Python paketlerini yükleyin:
+2. Install required packages
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Tor Expert Bundle'ı indirin ve içeriğini 'tor' klasörüne çıkarın.
+3. Make sure Tor binaries are in the `tor` folder
 
-## Kullanım
+## Usage
 
-Program otomatik olarak yönetici izniyle başlar:
+1. Run the application:
 ```bash
-python src/main.py
+python main.py
 ```
 
-### Temel Kullanım
-1. "Bağlan" butonuna tıklayarak Tor ağına bağlanın
-2. Bağlantı durumunu ve hızını ana ekrandan takip edin
-3. Ayarlar menüsünden tercihleri özelleştirin:
-   - Başlangıçta otomatik bağlanma
-   - Sistem tepsisine küçültme
-   - Bağlantı geçmişi kaydetme
-   - Bağlantı hızı gösterimi
-   - Otomatik yeniden bağlanma süresi
+2. Click "Connect" to start routing traffic through Tor
+3. The system tray icon will show connection status
+4. Access settings through the "Settings" button
 
-## Güvenlik Özellikleri
+## Settings
 
-- Optimize edilmiş Tor bağlantı protokolü
-- Sistem proxy ayarlarının güvenli yönetimi
-- Otomatik bağlantı durumu kontrolü
-- Güvenli bağlantı kesme ve temizleme
+- Auto-connect on startup
+- Minimize to system tray
+- Save connection history
+- Show speed information
+- Auto-reconnect timer
+- System proxy configuration
 
-## Lisans
+## Security Features
 
-Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın. 
+- Secure socket handling
+- Tor connection verification
+- System proxy integration
+- Port security checks
+- Clean session management
