@@ -1,3 +1,0 @@
-"""
-TorShield kullanıcı arayüzü paketi.
-""" 

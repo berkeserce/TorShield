@@ -23,7 +23,7 @@ class ConnectionHistory:
             with open(self.history_file, 'w') as f:
                 json.dump(self.connections, f, indent=4)
         except Exception as e:
-            print(f"Bağlantı geçmişi kaydedilirken hata oluştu: {e}")
+            print(f"Error saving connection history: {e}")
             
     def add_connection(self, ip, duration):
         connection = {
@@ -45,12 +45,12 @@ class ConnectionHistory:
         return self.connections[-count:]
         
     def clear_history(self):
-        """Tüm bağlantı geçmişini temizle"""
+        """Clear all connection history"""
         self.connections = []
         try:
             if os.path.exists(self.history_file):
                 os.remove(self.history_file)
             return True
         except Exception as e:
-            print(f"Geçmiş temizlenirken hata oluştu: {e}")
+            print(f"Error clearing history: {e}")
             return False 

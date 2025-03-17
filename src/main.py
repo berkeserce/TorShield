@@ -2,6 +2,8 @@ import sys
 import os
 import ctypes
 import subprocess
+import win32gui
+import win32con
 
 def is_admin():
     try:
@@ -22,12 +24,17 @@ from PySide6.QtWidgets import QApplication
 from PySide6.QtGui import QIcon
 from src.controllers.tor_controller import TorController
 
+def hide_console():
+    window = win32gui.GetForegroundWindow()
+    if window:
+        win32gui.ShowWindow(window, win32con.SW_HIDE)
+
 def main():
     run_as_admin()
+    hide_console()
     
     app = QApplication(sys.argv)
     
-    # Uygulama simgesini ayarla
     icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ui', 'logo.ico')
     if os.path.exists(icon_path):
         app.setWindowIcon(QIcon(icon_path))
@@ -37,4 +44,4 @@ def main():
     sys.exit(app.exec())
     
 if __name__ == '__main__':
-    main() 
+    main()

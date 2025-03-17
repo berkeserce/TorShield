@@ -3,3 +3,4 @@ stem>=1.8.2
 requests>=2.32.3
 psutil>=5.9.8
 PySocks>=1.7.1
+pywin32>=306

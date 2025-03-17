@@ -13,6 +13,12 @@ TorShield is a secure and user-friendly desktop application that routes your int
 - System proxy integration
 - Secure Tor network routing
 
+## Requirements
+
+- Python 3.9+
+- Tor Browser (for Tor binaries)
+- Windows 10/11
+
 ## Installation
 
 1. Clone the repository
@@ -32,7 +38,7 @@ pip install -r requirements.txt
 
 1. Run the application:
 ```bash
-python src/main.py
+python main.py
 ```
 
 2. Click "Connect" to start routing traffic through Tor

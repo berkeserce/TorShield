@@ -1,7 +1,10 @@
 {
+    "auto_start": false,
     "auto_connect": false,
-    "minimize_to_tray": true,
-    "save_history": true,
+    "minimize_to_tray": false,
     "show_speed": true,
-    "auto_reconnect": 0
+    "auto_ip_change": false,
+    "ip_change_interval": 1,
+    "show_ip_notification": true,
+    "exit_country": ""
 }

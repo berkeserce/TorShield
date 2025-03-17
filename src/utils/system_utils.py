@@ -28,7 +28,6 @@ def get_tor_path():
 
 def set_system_proxy(enable, host='127.0.0.1', port='9050'):
     try:
-        # Internet Settings
         INTERNET_SETTINGS = winreg.OpenKey(winreg.HKEY_CURRENT_USER,
             r'Software\Microsoft\Windows\CurrentVersion\Internet Settings',
             0, winreg.KEY_ALL_ACCESS)
@@ -52,7 +51,6 @@ def set_system_proxy(enable, host='127.0.0.1', port='9050'):
             set_key('ProxyEnable', 0)
             set_key_string('ProxyServer', '')
 
-        # Registry değişikliklerini uygula
         try:
             subprocess.run(['ipconfig', '/flushdns'], capture_output=True)
             subprocess.run(['ipconfig', '/registerdns'], capture_output=True)
@@ -61,7 +59,6 @@ def set_system_proxy(enable, host='127.0.0.1', port='9050'):
         except Exception as e:
             print(f"IP yapılandırması yenilenirken hata: {e}")
 
-        # Internet Options'ı yenile
         INTERNET_OPTION_SETTINGS_CHANGED = 39
         INTERNET_OPTION_REFRESH = 37
         try:

@@ -1,3 +1,0 @@
-"""
-TorShield Controllers paketi.
-""" 
