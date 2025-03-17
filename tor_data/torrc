@@ -1,9 +1,0 @@
-DataDirectory C:\Users\berke\Desktop\tor\tor_data
-SocksPort 9050
-ControlPort 9051
-CookieAuthentication 1
-
-CircuitBuildTimeout 60
-LearnCircuitBuildTimeout 1
-NewCircuitPeriod 15
-MaxCircuitDirtiness 600
