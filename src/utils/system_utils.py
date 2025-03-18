@@ -36,13 +36,13 @@ def set_system_proxy(enable, host='127.0.0.1', port='9050'):
             try:
                 winreg.SetValueEx(INTERNET_SETTINGS, name, 0, winreg.REG_DWORD, value)
             except Exception as e:
-                print(f"Registry değeri ayarlanırken hata: {name} - {e}")
+                print(f"Error setting registry value: {name} - {e}")
 
         def set_key_string(name, value):
             try:
                 winreg.SetValueEx(INTERNET_SETTINGS, name, 0, winreg.REG_SZ, value)
             except Exception as e:
-                print(f"Registry değeri ayarlanırken hata: {name} - {e}")
+                print(f"Error setting registry value: {name} - {e}")
 
         if enable:
             set_key('ProxyEnable', 1)
@@ -57,7 +57,7 @@ def set_system_proxy(enable, host='127.0.0.1', port='9050'):
             subprocess.run(['ipconfig', '/release'], capture_output=True)
             subprocess.run(['ipconfig', '/renew'], capture_output=True)
         except Exception as e:
-            print(f"IP yapılandırması yenilenirken hata: {e}")
+            print(f"Error refreshing IP configuration: {e}")
 
         INTERNET_OPTION_SETTINGS_CHANGED = 39
         INTERNET_OPTION_REFRESH = 37
@@ -65,9 +65,9 @@ def set_system_proxy(enable, host='127.0.0.1', port='9050'):
             ctypes.windll.Wininet.InternetSetOptionW(0, INTERNET_OPTION_REFRESH, 0, 0)
             ctypes.windll.Wininet.InternetSetOptionW(0, INTERNET_OPTION_SETTINGS_CHANGED, 0, 0)
         except Exception as e:
-            print(f"Internet seçenekleri yenilenirken hata: {e}")
+            print(f"Error refreshing Internet options: {e}")
 
         return True
     except Exception as e:
-        print(f"Sistem proxy ayarları değiştirilirken hata oluştu: {e}")
+        print(f"Error changing system proxy settings: {e}")
         return False 

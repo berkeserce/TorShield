@@ -20,23 +20,19 @@ class SettingsDialog(QDialog):
         self.setWindowTitle('TorShield Settings')
         self.setFixedSize(600, 600)
         
-        # Ana layout
         main_layout = QVBoxLayout()
         main_layout.setContentsMargins(15, 15, 15, 15)
         main_layout.setSpacing(10)
-        
-        # Header section
+
         header = self._create_header()
         main_layout.addLayout(header)
         
-        # Tab widget
         tab_widget = QTabWidget()
         tab_widget.addTab(self._create_general_tab(), "General")
         tab_widget.addTab(self._create_country_tab(), "Country Selection")
         tab_widget.addTab(self._create_history_tab(), "History")
         main_layout.addWidget(tab_widget)
         
-        # Bottom buttons
         buttons = self._create_buttons()
         main_layout.addLayout(buttons)
         
@@ -45,14 +41,12 @@ class SettingsDialog(QDialog):
     def _create_header(self):
         header = QHBoxLayout()
         
-        # Logo
         logo_label = QLabel()
         logo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'assets/logo.png')
         if os.path.exists(logo_path):
             logo_pixmap = QPixmap(logo_path).scaled(40, 40, Qt.AspectRatioMode.KeepAspectRatio)
             logo_label.setPixmap(logo_pixmap)
         
-        # Title
         title = QLabel("TorShield Settings")
         title.setFont(QFont('Segoe UI', 14, QFont.Weight.Bold))
         
@@ -66,7 +60,6 @@ class SettingsDialog(QDialog):
         tab = QWidget()
         layout = QVBoxLayout()
         
-        # Startup Settings
         startup_group = QGroupBox("Startup Settings")
         startup_layout = QVBoxLayout()
         
@@ -79,7 +72,6 @@ class SettingsDialog(QDialog):
         startup_layout.addWidget(self.minimize_to_tray)
         startup_group.setLayout(startup_layout)
         
-        # IP Change Settings
         ip_group = QGroupBox("IP Change Settings")
         ip_layout = QVBoxLayout()
         
@@ -103,7 +95,6 @@ class SettingsDialog(QDialog):
         ip_layout.addWidget(self.show_ip_notification)
         ip_group.setLayout(ip_layout)
         
-        # Appearance Settings
         appearance_group = QGroupBox("Appearance Settings")
         appearance_layout = QVBoxLayout()
         
@@ -123,7 +114,6 @@ class SettingsDialog(QDialog):
         tab = QWidget()
         layout = QVBoxLayout()
         
-        # History View
         history_group = QGroupBox("Connection History")
         history_layout = QVBoxLayout()
         
@@ -139,7 +129,6 @@ class SettingsDialog(QDialog):
         self.history_content.setLayout(self.history_content_layout)
         self.history_area.setWidget(self.history_content)
         
-        # Geçmiş Yönetimi
         history_buttons = QHBoxLayout()
         self.refresh_button = QPushButton("Refresh")
         self.refresh_button.clicked.connect(self.update_history_text)
@@ -258,19 +247,16 @@ class SettingsDialog(QDialog):
         except:
             settings = {}
         
-        # Genel ayarlar
         self.auto_start.setChecked(settings.get('auto_start', False))
         self.auto_connect.setChecked(settings.get('auto_connect', False))
         self.minimize_to_tray.setChecked(settings.get('minimize_to_tray', True))
         self.show_speed.setChecked(settings.get('show_speed', True))
         
-        # IP değiştirme ayarları
         self.auto_ip_change.setChecked(settings.get('auto_ip_change', False))
         self.ip_interval.setValue(settings.get('ip_change_interval', 15))
         self.show_ip_notification.setChecked(settings.get('show_ip_notification', True))
         self._toggle_ip_interval(self.auto_ip_change.checkState())
         
-        # Ülke seçimi ayarları
         exit_country = settings.get('exit_country', '')
         if exit_country:
             for i in range(self.country_combo.count()):
@@ -278,13 +264,9 @@ class SettingsDialog(QDialog):
                     self.country_combo.setCurrentIndex(i)
                     break
         
-
-        
         self.update_history_text()
 
     def saveSettings(self):
-
-        
         settings = {
             'auto_start': self.auto_start.isChecked(),
             'auto_connect': self.auto_connect.isChecked(),
@@ -297,17 +279,14 @@ class SettingsDialog(QDialog):
         }
         
         try:
-            # Ayarları dosyaya kaydet
             with open('settings.json', 'w') as f:
                 json.dump(settings, f, indent=4)
             
-            # Ana pencere ayarlarını güncelle
             if self.parent:
                 self.parent.settings = settings
                 self.parent.speed_label.setVisible(settings['show_speed'])
                 self.parent.update_auto_ip_change()
                 
-                # Eğer bağlıysa ve ülke değiştiyse, yeniden bağlanma öner
                 if self.parent.is_connected and 'exit_country' in settings:
                     QMessageBox.information(self, "Information", "Country selection has changed. You need to reconnect for the changes to take effect.")
                 
@@ -320,25 +299,23 @@ class SettingsDialog(QDialog):
         tab = QWidget()
         layout = QVBoxLayout()
         
-        # Country Selection Settings
         country_group = QGroupBox("Country-Based Exit Node")
         country_layout = QVBoxLayout()
         
-        # Description
         description = QLabel("You can choose which country your Tor connection will exit from. "
                            "This allows websites you visit to see you as a user "
                            "coming from your selected country.")
         description.setWordWrap(True)
         country_layout.addWidget(description)
         
-        # Country selection
+
         country_select_layout = QHBoxLayout()
         country_select_layout.addWidget(QLabel("Exit Country:"))
         
         self.country_combo = QComboBox()
         self.country_combo.addItem("Automatic (No Country Selection)", "")
         
-        # Tüm ülkeler
+
         all_countries = get_all_countries()
         for code, name in sorted(all_countries.items(), key=lambda x: x[1]):
             self.country_combo.addItem(f"{name} ({code})", code)
@@ -349,13 +326,10 @@ class SettingsDialog(QDialog):
         country_group.setLayout(country_layout)
         layout.addWidget(country_group)
 
-
         layout.addStretch()
         tab.setLayout(layout)
         return tab
         
-
-    
     def _clear_history(self):
         if hasattr(self.parent, 'connection_history') and self.parent.connection_history:
             self.parent.connection_history.clear_history()

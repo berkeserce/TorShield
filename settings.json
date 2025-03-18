@@ -6,5 +6,6 @@
     "auto_ip_change": false,
     "ip_change_interval": 1,
     "show_ip_notification": true,
-    "exit_country": ""
+    "exit_country": "",
+    "enable_kill_switch": false
 }

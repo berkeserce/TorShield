@@ -21,14 +21,12 @@ SocksPort 9050
 ControlPort 9051
 CookieAuthentication 1
 """    
-    # Ülke bazlı çıkış noktası ayarı
     if exit_country and exit_country.strip():
         config += f"\nExitNodes {{{exit_country}}}"
         config += "\nStrictNodes 0"
         config += "\nGeoIPFile " + os.path.join(os.path.dirname(os.path.dirname(tor_path)), 'data', 'geoip')
         config += "\nGeoIPv6File " + os.path.join(os.path.dirname(os.path.dirname(tor_path)), 'data', 'geoip6')
         
-    # Add connection optimization settings
     config += "\nCircuitBuildTimeout 60"
     config += "\nLearnCircuitBuildTimeout 1"
     config += "\nNewCircuitPeriod 15"
@@ -39,13 +37,13 @@ CookieAuthentication 1
             f.write(config)
         return config_path
     except Exception as e:
-        print(f"Tor yapılandırma dosyası oluşturulurken hata oluştu: {e}")
+        print(f"Error creating Tor configuration file: {e}")
         return None
         
 def launch_tor(tor_path, config_path, status_callback=None):
     try:
         if status_callback:
-            status_callback("Tor başlatılıyor...")
+            status_callback("Starting Tor...")
             
         process = subprocess.Popen(
             [tor_path, '-f', config_path],
@@ -58,19 +56,19 @@ def launch_tor(tor_path, config_path, status_callback=None):
         
         if process.poll() is not None:
             if status_callback:
-                status_callback("Tor başlatılamadı!")
+                status_callback("Failed to start Tor!")
             return None
             
         if status_callback:
-            status_callback("Tor başlatıldı!")
+            status_callback("Tor started successfully!")
             
         return process
     except Exception as e:
         if status_callback:
-            status_callback(f"Tor başlatılırken hata oluştu: {e}")
+            status_callback(f"Error starting Tor: {e}")
         return None
         
 def create_controller():
-    controller = Controller.from_port(port=9051, timeout=5)
+    controller = Controller.from_port(port=9051)
     controller.authenticate()
     return controller

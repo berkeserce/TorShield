@@ -11,7 +11,6 @@ import psutil
 import time
 import json
 import sys
-
 from src.ui.settings_dialog import SettingsDialog
 from src.utils.system_utils import set_system_proxy, get_tor_path
 from src.utils.tor_utils import is_port_in_use, create_tor_config, launch_tor, create_controller
@@ -46,7 +45,6 @@ class TorWorker(QThread):
     def _connect_to_tor(self):
         original_socket = socket.socket
         try:
-            # Terminate Tor processes
             self.status.emit('Stopping existing Tor processes...')
             for proc in psutil.process_iter(['pid', 'name']):
                 if 'tor.exe' in proc.info['name'].lower():
@@ -60,7 +58,7 @@ class TorWorker(QThread):
                             pass
             time.sleep(3)
             
-            # Disable proxy settings
+
             self.status.emit('Disabling Windows proxy settings...')
             set_system_proxy(False)
             time.sleep(1)
@@ -422,7 +420,6 @@ class MainWindow(QMainWindow):
             return
         
         try:
-            # Update speed information
             if self.settings.get('show_speed', True):
                 current_time = time.time()
                 time_diff = current_time - self.last_time
@@ -476,7 +473,7 @@ class MainWindow(QMainWindow):
                            f"Duration: {hours}:{minutes:02d}:{seconds:02d}\n"
                            f"{'-' * 30}\n")
             
-        QMessageBox.information(self, "Bağlantı Geçmişi", history_text)
+        QMessageBox.information(self, "Connection History", history_text)
         
     def start_tor(self):
         try:
@@ -590,7 +587,7 @@ class MainWindow(QMainWindow):
                 "Address already in use": 'Port Error: 9050/9051 in use',
                 "Connection refused": 'Connection Error: Failed to start Tor service'
             }
-            self.status_label.setText(error_texts.get(error_msg, f'Tor Başlatma Hatası: {error_msg}'))
+            self.status_label.setText(error_texts.get(error_msg, f'Tor Startup Error: {error_msg}'))
             return False
 
     def _cleanup_tor_processes(self):
@@ -681,7 +678,6 @@ class MainWindow(QMainWindow):
             
         self.connect_button.setEnabled(False)
         self.connect_button.setText('Disconnecting...')
-        # Force style update to apply the red color
         self.connect_button.setStyleSheet(self.connect_button.styleSheet())
         self.connect_button.update()
         self.connect_button.repaint()
@@ -746,7 +742,6 @@ class MainWindow(QMainWindow):
             self.status_label.setText('Connection Status: Disconnected')
             self.status_label.setStyleSheet('color: #FF0000; font-weight: bold;')
             self.connect_button.setText('Connect')
-            # Apply the original style from _apply_styles
             self._apply_styles()
             self.connect_button.update()
             self.ip_label.setText('IP Address: -')
