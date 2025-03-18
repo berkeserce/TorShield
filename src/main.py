@@ -31,7 +31,6 @@ def hide_console():
 
 def main():
     run_as_admin()
-    hide_console()
     
     app = QApplication(sys.argv)
     
