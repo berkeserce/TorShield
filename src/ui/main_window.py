@@ -224,7 +224,31 @@ class MainWindow(QMainWindow):
             
     def loadSettings(self):
         try:
-            with open('settings.json', 'r') as f:
+            app_data_path = os.path.join(os.environ.get('APPDATA', ''), 'TorShield')
+            
+            if not os.path.exists(app_data_path):
+                os.makedirs(app_data_path)
+                
+            settings_path = os.path.join(app_data_path, 'settings.json')
+            
+            if not os.path.exists(settings_path):
+                self.settings = {
+                    'auto_connect': False,
+                    'minimize_to_tray': True,
+                    'save_history': True,
+                    'show_speed': True,
+                    'proxy_host': '127.0.0.1',
+                    'proxy_port': '9050',
+                    'auto_start': False,
+                    'auto_ip_change': False,
+                    'ip_change_interval': 10,
+                    'show_ip_notification': True,
+                    'exit_country': ''
+                }
+                self.saveSettings()
+                return
+            
+            with open(settings_path, 'r') as f:
                 self.settings = json.load(f)
         except:
             self.settings = {
@@ -233,8 +257,28 @@ class MainWindow(QMainWindow):
                 'save_history': True,
                 'show_speed': True,
                 'proxy_host': '127.0.0.1',
-                'proxy_port': '9050'
+                'proxy_port': '9050',
+                'auto_start': False,
+                'auto_ip_change': False,
+                'ip_change_interval': 10,
+                'show_ip_notification': True,
+                'exit_country': ''
             }
+            self.saveSettings()
+            
+    def saveSettings(self):
+        try:
+            app_data_path = os.path.join(os.environ.get('APPDATA', ''), 'TorShield')
+            
+            if not os.path.exists(app_data_path):
+                os.makedirs(app_data_path)
+                
+            settings_path = os.path.join(app_data_path, 'settings.json')
+            
+            with open(settings_path, 'w') as f:
+                json.dump(self.settings, f, indent=4)
+        except Exception as e:
+            print(f"Error saving settings: {str(e)}")
             
     def initUI(self):
         self.setWindowTitle('TorShield')

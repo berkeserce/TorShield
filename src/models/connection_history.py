@@ -5,7 +5,12 @@ import os
 class ConnectionHistory:
     def __init__(self, max_entries=10):
         self.max_entries = max_entries
-        self.history_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'connection_history.json')
+        
+        app_data_path = os.path.join(os.environ.get('APPDATA', ''), 'TorShield')
+        if not os.path.exists(app_data_path):
+            os.makedirs(app_data_path)
+            
+        self.history_file = os.path.join(app_data_path, 'connection_history.json')
         self.connections = self.load_history()
         
     def load_history(self):

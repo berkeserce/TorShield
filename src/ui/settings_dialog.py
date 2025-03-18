@@ -279,16 +279,24 @@ class SettingsDialog(QDialog):
         }
         
         try:
-            with open('settings.json', 'w') as f:
-                json.dump(settings, f, indent=4)
-            
             if self.parent:
-                self.parent.settings = settings
+                self.parent.settings.update(settings)
+                self.parent.saveSettings()
+                
                 self.parent.speed_label.setVisible(settings['show_speed'])
                 self.parent.update_auto_ip_change()
                 
                 if self.parent.is_connected and 'exit_country' in settings:
                     QMessageBox.information(self, "Information", "Country selection has changed. You need to reconnect for the changes to take effect.")
+            else:
+                app_data_path = os.path.join(os.environ.get('APPDATA', ''), 'TorShield')
+                if not os.path.exists(app_data_path):
+                    os.makedirs(app_data_path)
+                    
+                settings_path = os.path.join(app_data_path, 'settings.json')
+                
+                with open(settings_path, 'w') as f:
+                    json.dump(settings, f, indent=4)
                 
             QMessageBox.information(self, "Success", "Settings saved successfully!")
             self.accept()
