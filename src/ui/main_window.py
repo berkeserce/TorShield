@@ -11,6 +11,7 @@ import psutil
 import time
 import json
 import sys
+import subprocess
 from src.ui.settings_dialog import SettingsDialog
 from src.utils.system_utils import set_system_proxy, get_tor_path
 from src.utils.tor_utils import is_port_in_use, create_tor_config, launch_tor, create_controller
@@ -183,7 +184,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.loadSettings()
         
-        icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logo.svg')
+        icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logo.ico')
         if os.path.exists(icon_path):
             self.setWindowIcon(QIcon(icon_path))
         
@@ -506,7 +507,9 @@ class MainWindow(QMainWindow):
                 try:
                     self.status_label.setText('Cleaning used ports...')
                     QApplication.processEvents()
-                    os.system('taskkill /F /IM tor.exe')
+                    subprocess.run(['taskkill', '/F', '/IM', 'tor.exe'], 
+                                  capture_output=True, 
+                                  creationflags=subprocess.CREATE_NO_WINDOW)
                     time.sleep(3)
                 except Exception as e:
                     print(f"Error terminating Tor process: {str(e)}")

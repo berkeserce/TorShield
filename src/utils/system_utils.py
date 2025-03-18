@@ -52,10 +52,10 @@ def set_system_proxy(enable, host='127.0.0.1', port='9050'):
             set_key_string('ProxyServer', '')
 
         try:
-            subprocess.run(['ipconfig', '/flushdns'], capture_output=True)
-            subprocess.run(['ipconfig', '/registerdns'], capture_output=True)
-            subprocess.run(['ipconfig', '/release'], capture_output=True)
-            subprocess.run(['ipconfig', '/renew'], capture_output=True)
+            subprocess.run(['ipconfig', '/flushdns'], capture_output=True, creationflags=subprocess.CREATE_NO_WINDOW)
+            subprocess.run(['ipconfig', '/registerdns'], capture_output=True, creationflags=subprocess.CREATE_NO_WINDOW)
+            subprocess.run(['ipconfig', '/release'], capture_output=True, creationflags=subprocess.CREATE_NO_WINDOW)
+            subprocess.run(['ipconfig', '/renew'], capture_output=True, creationflags=subprocess.CREATE_NO_WINDOW)
         except Exception as e:
             print(f"Error refreshing IP configuration: {e}")
 
