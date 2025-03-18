@@ -1,7 +1,7 @@
 # TorShield
 
 <p align="center">
-  <img src="src/ui/logo.svg" alt="TorShield Logo" width="200"/>
+  <img src="src/ui/logo.ico" alt="TorShield Logo" width="200"/>
 </p>
 
 TorShield is a powerful desktop application that provides a secure and user-friendly interface for connecting to the Tor network. It allows users to browse the internet anonymously while offering real-time connection statistics and advanced privacy controls.
@@ -14,7 +14,6 @@ TorShield is a powerful desktop application that provides a secure and user-frie
 - [Settings](#settings)
 - [Security Features](#security-features)
 - [Development](#development)
-- [Contributing](#contributing)
 - [License](#license)
 - [Disclaimer](#disclaimer)
 
@@ -73,13 +72,13 @@ TorShield is a powerful desktop application that provides a secure and user-frie
 
 4. **Run the application**
    ```bash
-   python main.py
+   python src/main.py
    ```
 
 ### Using Pre-built Release
 
 1. **Download the latest release**
-   - Visit the [Releases](https://github.com/yourusername/torshield/releases) page
+   - Visit the [Releases](https://github.com/berkeserce/torshield/releases) page
    - Download the latest `.zip` or `.exe` package
 
 2. **Extract the archive**
@@ -176,14 +175,6 @@ Access the settings dialog by clicking the "Settings" button in the main interfa
 
 ## Development
 
-### Dependencies
-
-- **PySide6**: Qt for Python - used for the graphical user interface
-- **Stem**: Tor controller library for managing Tor connections
-- **PySocks**: SOCKS proxy library for routing traffic
-- **Requests**: HTTP library for testing connections and verifying Tor connectivity
-- **Psutil**: Process utilities for managing Tor processes
-
 ### Project Structure
 
 - `main.py` - Application entry point
@@ -196,18 +187,6 @@ Access the settings dialog by clicking the "Settings" button in the main interfa
 - `src/models/` - Data models
   - `connection_history.py` - Connection tracking
 - `tor/` - Tor binary files
-
-## Contributing
-
-Contributions to TorShield are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create your feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add some amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-Please ensure your code follows the existing style and includes appropriate documentation.
 
 ## License
 
