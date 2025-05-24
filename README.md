@@ -57,7 +57,7 @@ TorShield is a powerful desktop application that provides a secure and user-frie
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/torshield.git
+   git clone https://github.com/berkeserce/torshield.git
    cd torshield
    ```
 
